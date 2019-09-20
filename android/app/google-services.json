@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "871890232258",
+    "firebase_url": "https://eletion-b0344.firebaseio.com",
+    "project_id": "eletion-b0344",
+    "storage_bucket": "eletion-b0344.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871890232258:android:a9c58b1daf6ffb7d49ac5b",
+        "android_client_info": {
+          "package_name": "com.example.ml_kit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871890232258-o6htnr43ggq0a6soofdmh5kq11hdc7jr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOIM5OnUmDNP__IsJZRE1Go4mQ0DyUiLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871890232258-o6htnr43ggq0a6soofdmh5kq11hdc7jr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
