@@ -1,5 +1,5 @@
 import 'dart:io';
-
+//no olvidar importar aca
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //Metodo que manejara la respuesta
     for (TextBlock bloque in readText.blocks) {
       for (TextLine linea in bloque.lines) {
-        print(linea.text);
+        print(linea.text.split(" "));
       }
     }
   }
@@ -84,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: readText,
         tooltip: 'Escoge una imagen',
-        child: Icon(Icons.adjust),
+        //este es el boton para subir la imagen, funciona desde la consolag
+        child: Icon(Icons.archive),
       ),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
