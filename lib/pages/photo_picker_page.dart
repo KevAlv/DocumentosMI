@@ -1,9 +1,8 @@
 import 'dart:io';
-
-import 'package:fit_image/fit_image.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:ml_kit/services/mlkit_services.dart';
+import 'package:ml_kit/services/upload_image_service.dart';
 
 class PhotoPicker extends StatefulWidget {
   PhotoPicker({Key key}) : super(key: key);
@@ -13,12 +12,16 @@ class PhotoPicker extends StatefulWidget {
 }
 
 class _PhotoPickerState extends State<PhotoPicker> {
-    File _image;
+  File _image;
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-    });
+    try {
+      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        _image = image;
+      });
+    } catch (e) {
+      print('no image selected');
+    }
   }
 
   @override
@@ -27,30 +30,35 @@ class _PhotoPickerState extends State<PhotoPicker> {
       appBar: AppBar(
         title: Text('Image Picker Example'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _image == null
-                ? Text('No image selected.')
-                : new SizedBox(
-                    width: 200,
-                    height: 350,
-                    child: new FitImage(
-                      child: Image.file(_image),
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-            FloatingActionButton(
-              onPressed: getImage,
-              tooltip: 'Escoge una imagen',
-              child: Icon(Icons.add_photo_alternate),
-            )
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 300,
+            child: _image == null
+                ? new Column(children: <Widget>[
+                    Image.network(
+                      'https://static.thenounproject.com/png/1174579-200.png',
+                      height: 300,
+                    )
+                  ])
+                : Image.file(_image),
+          ),
+          FloatingActionButton(
+            onPressed: getImage,
+            tooltip: 'Escoge una imagen',
+            child: Icon(Icons.add_photo_alternate),
+          )
+        ],
       ),
+
       floatingActionButton: FloatingActionButton(
-        onPressed:(){readText(_image);} ,
+        onPressed: ()
+        
+         {
+           upload(_image);
+          // readText(_image);
+        },
         tooltip: 'Escoge una imagen',
         //este es el boton para subir la imagen, funciona desde la consolag
         child: Icon(Icons.archive),
