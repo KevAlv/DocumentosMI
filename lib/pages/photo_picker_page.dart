@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
-import 'package:ml_kit/services/mlkit_services.dart';
 import 'package:ml_kit/services/upload_image_service.dart';
 
 class PhotoPicker extends StatefulWidget {
@@ -27,9 +26,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Image Picker Example'),
-      ),
+ 
       body: ListView(
         children: <Widget>[
           Container(
