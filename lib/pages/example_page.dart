@@ -7,8 +7,9 @@ class PlaceholderWidget extends StatelessWidget {
 
  @override
  Widget build(BuildContext context) {
-   return Container(
-     color: color,
+   return Scaffold(
+     appBar: AppBar(title:Text('dafadfdfasf')),
+     body: Container(color: color),
    );
  }
 }

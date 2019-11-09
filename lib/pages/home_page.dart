@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/pages/photo_picker_page.dart';
+import 'documentos_page.dart';
 import 'example_page.dart';
 
 class Home extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
    });
  }
   final List<Widget> _children = [   
-  PlaceholderWidget(Colors.white),
+  DocumentosView(),
    PhotoPicker(),
    PlaceholderWidget(Colors.green)];
  @override

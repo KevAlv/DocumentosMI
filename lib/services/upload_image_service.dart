@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/services/mlkit_services.dart';
 import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +9,8 @@ import 'package:async/async.dart';
 Future upload(File imageFile) async {
   var stream= new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
   var length= await imageFile.length();
-  var uri = Uri.parse("http://192.168.0.15/my_store/upload.php");
+  var link=linking;
+  var uri = Uri.parse(link+"/upload.php");
   var request = new http.MultipartRequest("POST",uri);
   String contenido = await readText(imageFile);
   var multipartFile = new http.MultipartFile("image", stream, length, filename: basename(imageFile.path)); 
