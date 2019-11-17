@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/model/Fojas.dart';
+import 'package:ml_kit/pages/image_view.dart';
 import 'package:ml_kit/services/database_services.dart';
 
 class DocumentDetail extends StatefulWidget {
@@ -32,35 +33,42 @@ class _DocumentDetailState extends State<DocumentDetail> {
     });
   }
 
-  Widget scrollWidget() {
-    return GestureDetector(
-      child: listCardBuilder(),
-    );
-  }
-
   Widget listCardBuilder() {
     return ListView.builder(
       itemCount: _fojasSelected.length,
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: Image(
-            image: NetworkImage(
-                URL_HOST + 'uploads/' + _fojasSelected.elementAt(index).image),
+        return new GestureDetector(
+          onTap: () {
+            _selectImage(_fojasSelected.elementAt(index).image);
+          },
+          child: Card(
+            child: Image(
+              image: NetworkImage(URL_HOST +
+                  'uploads/' +
+                  _fojasSelected.elementAt(index).image),
+            ),
           ),
         );
       },
     );
   }
 
+  _selectImage(String image) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => ImageView(
+                  nameImage: image,
+                )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Documento: ' + widget.idDocumento.toString()),
-        ),
-        body: GestureDetector(
-          // onTap:
-          child: scrollWidget(),
-        ));
+      appBar: AppBar(
+        title: Text('Documento: ' + widget.idDocumento.toString()),
+      ),
+      body: listCardBuilder(),
+    );
   }
 }
