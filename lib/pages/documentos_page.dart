@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ml_kit/model/Documents.dart';
 import 'package:ml_kit/services/database_services.dart';
 
-import 'example_page.dart';
+import 'document_detail.dart';
 
 
 class DocumentosView extends StatefulWidget {
@@ -22,9 +22,9 @@ class _DocumentosViewState extends State<DocumentosView> {
     _getDocuments();
   }
 
-    _selectDocument(){
+    _selectDocument(int ce,int idoc){
           Navigator.push(context,new MaterialPageRoute(
-            builder: (context)=>PlaceholderWidget(Colors.deepOrange)
+            builder: (context)=>DocumentDetail(ce,idoc)
           ));
     }
 
@@ -38,7 +38,7 @@ class _DocumentosViewState extends State<DocumentosView> {
   }
 
  Widget bodyData() => DataTable(
-   columnSpacing: 4.0,
+   columnSpacing: 20.0,
 
           columns: <DataColumn>[
 
@@ -58,9 +58,9 @@ class _DocumentosViewState extends State<DocumentosView> {
           ],
           rows: _documentos
               .map((documentonro) => DataRow(cells: [
-                    DataCell(Text(documentonro.id.toString()),onTap:(){_selectDocument();} ),
-                    DataCell(Text(documentonro.fecha),),
-                    DataCell(Text(documentonro.title)),
+                    DataCell(Text(documentonro.id.toString()),onTap:(){_selectDocument(documentonro.id,documentonro.cod);} ),
+                    DataCell(Text(documentonro.fecha),onTap:(){_selectDocument(documentonro.id,documentonro.cod);} ),
+                    DataCell(Text(documentonro.title),onTap:(){_selectDocument(documentonro.id,documentonro.cod);}),
                   ]))
               .toList());
 
@@ -68,6 +68,7 @@ class _DocumentosViewState extends State<DocumentosView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Expedientes'),),
        body: SingleChildScrollView(
          scrollDirection: Axis.vertical,
          child: SingleChildScrollView(

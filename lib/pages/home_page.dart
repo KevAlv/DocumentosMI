@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/pages/photo_picker_page.dart';
+import 'package:ml_kit/pages/search_view.dart';
 import 'documentos_page.dart';
 import 'example_page.dart';
 
@@ -21,13 +22,11 @@ class _HomeState extends State<Home> {
   final List<Widget> _children = [   
   DocumentosView(),
    PhotoPicker(),
-   PlaceholderWidget(Colors.green)];
+   SearchPage()];
  @override
  Widget build(BuildContext context) {
    return Scaffold(
-     appBar: AppBar(
-       title: Text('My Flutter App'),
-     ),
+
     body: _children[_currentIndex],
 
      bottomNavigationBar: BottomNavigationBar(
@@ -43,9 +42,10 @@ class _HomeState extends State<Home> {
            title: new Text('Camara'),
          ),
          BottomNavigationBarItem(
-           icon: Icon(Icons.person),
-           title: Text('Profile')
-         )
+           icon: Icon(Icons.search),
+           title: Text('Busqueda')
+         ),
+         
        ],
      ),
    );

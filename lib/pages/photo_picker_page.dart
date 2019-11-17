@@ -26,7 +26,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- 
+      appBar:AppBar(title: Text("Tomar Foto"),),
       body: ListView(
         children: <Widget>[
           Container(
