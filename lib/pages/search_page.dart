@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ml_kit/common/DropDown_widget.dart';
 import 'package:ml_kit/common/list_widget.dart';
+import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/model/Fojas.dart';
 import 'package:ml_kit/services/database_services.dart';
 
@@ -34,7 +36,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget seachBar() {
     return TextField(
       onChanged: (value) {
-          _getFojas(value);
+        _getFojas(value);
       },
       controller: editingController,
       decoration: InputDecoration(
@@ -58,6 +60,13 @@ class _SearchPageState extends State<SearchPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: seachBar(),
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          rowWidgetFilter(),
+          SizedBox(
+            height: 10.0,
           ),
           Expanded(
             child: listCardBuilder(_fojasSelected),

@@ -10,7 +10,7 @@ Future upload(File imageFile,[int idDocumento,int codExpediente]) async {
 if(idDocumento==null){
     idDocumento=1;
 }if(codExpediente==null){
-    codExpediente=1;
+    codExpediente=3;
 }
   var stream =
       new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));

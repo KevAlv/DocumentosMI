@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
+import 'package:ml_kit/common/DropDown_widget.dart';
+import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/services/upload_image_service.dart';
 
 class PhotoPicker extends StatefulWidget {
@@ -26,9 +28,12 @@ class _PhotoPickerState extends State<PhotoPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text("Tomar Foto"),),
+      appBar: AppBar(
+        title: Text("Tomar Foto"),
+      ),
       body: ListView(
         children: <Widget>[
+          rowWidgetFilter(),
           Container(
             width: MediaQuery.of(context).size.width,
             height: 300,
@@ -50,10 +55,8 @@ class _PhotoPickerState extends State<PhotoPicker> {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: ()
-        
-         {
-           upload(_image);
+        onPressed: () {
+          upload(_image,idDocumentoGlobal,codExpedienteGlobal);
           // readText(_image);
         },
         tooltip: 'Escoge una imagen',
