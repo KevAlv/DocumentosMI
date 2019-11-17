@@ -6,7 +6,12 @@ import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 
-Future upload(File imageFile) async {
+Future upload(File imageFile,[int idDocumento,int codExpediente]) async {
+if(idDocumento==null){
+    idDocumento=1;
+}if(codExpediente==null){
+    codExpediente=1;
+}
   var stream =
       new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
   var length = await imageFile.length();
@@ -18,8 +23,8 @@ Future upload(File imageFile) async {
       filename: basename(imageFile.path));
 
   request.fields['Contenido'] = contenido;
-  request.fields['Id_documento'] = '1';
-  request.fields['CodExpediente'] = '1';
+  request.fields['Id_documento'] = idDocumento.toString();
+  request.fields['CodExpediente'] = codExpediente.toString();
   request.files.add(multipartFile);
 
   var response = await request.send();

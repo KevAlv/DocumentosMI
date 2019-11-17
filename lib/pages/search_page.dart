@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ml_kit/common/list_widget.dart';
+import 'package:ml_kit/model/Fojas.dart';
+import 'package:ml_kit/services/database_services.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -9,6 +12,39 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   TextEditingController editingController = TextEditingController();
+  List<Foja> _fojasSelected;
+  String word;
+  int idDoc;
+  int codDoc;
+  @override
+  void initState() {
+    super.initState();
+    _fojasSelected = [];
+    _getFojas('');
+  }
+
+  _getFojas(String word, [int doc, int codDoc]) {
+    Services.searchFojas(word, doc, codDoc).then((pages) {
+      setState(() {
+        _fojasSelected = pages;
+      });
+    });
+  }
+
+  Widget seachBar() {
+    return TextField(
+      onChanged: (value) {
+          _getFojas(value);
+      },
+      controller: editingController,
+      decoration: InputDecoration(
+          labelText: "Busqueda",
+          hintText: "Busqueda",
+          prefixIcon: Icon(Icons.search),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +57,10 @@ class _SearchPageState extends State<SearchPage> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              onChanged: (value) {},
-              controller: editingController,
-              decoration: InputDecoration(
-                  labelText: "Busqueda",
-                  hintText: "Busqueda",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-            ),
+            child: seachBar(),
+          ),
+          Expanded(
+            child: listCardBuilder(_fojasSelected),
           )
         ],
       )),

@@ -4,7 +4,8 @@ import 'package:ml_kit/model/Documents.dart';
 import 'package:ml_kit/model/Fojas.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.0.15/SistemaAbogados/Document_actions.php';
+  static const ROOT =
+      'http://192.168.0.15/SistemaAbogados/Document_actions.php';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _GET_ALL_DOCUMENTS_ACTION = 'GET_ALL_DOCUMENTS';
 
@@ -95,11 +96,10 @@ class Services {
           }
         } else {
           while (list.length > i) {
-            if ((list.elementAt(i).codExpediente == codExpediente)) {
-              if (list.elementAt(i).contenido.contains(word)) {
-                selectedFojas.add(list.elementAt(i));
-              }
+            if (list.elementAt(i).contenido.contains(word)) {
+              selectedFojas.add(list.elementAt(i));
             }
+
             i++;
           }
         }
