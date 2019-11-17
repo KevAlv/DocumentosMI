@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/model/Documents.dart';
 import 'package:ml_kit/services/database_services.dart';
-
 import 'document_detail.dart';
-
 
 class DocumentosView extends StatefulWidget {
   DocumentosView({Key key}) : super(key: key);
