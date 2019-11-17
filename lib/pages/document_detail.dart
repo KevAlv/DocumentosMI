@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/model/Fojas.dart';
-import 'package:ml_kit/pages/image_view.dart';
+import 'package:ml_kit/pages/image_view_page.dart';
 import 'package:ml_kit/services/database_services.dart';
 
 class DocumentDetail extends StatefulWidget {
