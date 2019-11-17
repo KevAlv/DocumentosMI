@@ -9,7 +9,7 @@ import 'package:async/async.dart';
 Future upload(File imageFile) async {
   var stream= new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
   var length= await imageFile.length();
-  var link=linking;
+  var link=URL_HOST;
   var uri = Uri.parse(link+"/upload.php");
   var request = new http.MultipartRequest("POST",uri);
   String contenido = await readText(imageFile);

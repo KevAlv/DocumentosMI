@@ -4,13 +4,9 @@ import 'package:ml_kit/model/Documents.dart';
 import 'package:ml_kit/model/Fojas.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.43.90/my_store/Document_actions.php';
-  // static const _CREATE_TABLE_ACTION = 'CREATE_TABLE';
+  static const ROOT = 'http://192.168.0.15/SistemaAbogados/Document_actions.php';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _GET_ALL_DOCUMENTS_ACTION = 'GET_ALL_DOCUMENTS';
-  // static const _ADD_EMP_ACTION = 'ADD_EMP';
-  // static const _UPDATE_EMP_ACTION = 'UPDATE_EMP';
-  // static const _DELETE_EMP_ACTION = 'DELETE_EMP';
 
   static Future<List<Documento>> getDocuments() async {
     try {

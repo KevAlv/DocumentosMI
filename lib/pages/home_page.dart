@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ml_kit/pages/photo_picker_page.dart';
 import 'package:ml_kit/pages/search_view.dart';
 import 'documentos_page.dart';
-import 'example_page.dart';
 
 class Home extends StatefulWidget {
  @override

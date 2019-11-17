@@ -32,13 +32,7 @@ class _DocumentDetailState extends State<DocumentDetail> {
   }
 
 
-Widget imageList(){
-  return Column(
-    children: <Widget>[
-        Image.network('http://192.168.0.15/my_store/uploads/'+_fojasSelected.elementAt(0).image)
-    ],
-  );
-}
+
  Widget bodyDataDetail() => DataTable(
    columnSpacing: 4.0,
 
