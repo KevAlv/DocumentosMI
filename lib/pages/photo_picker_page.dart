@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
-import 'package:ml_kit/common/DropDown_widget.dart';
 import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/services/upload_image_service.dart';
 
@@ -14,6 +13,63 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   File _image;
+List<String> lista = ['1', '2', '3', '4'];
+List<String> lista2 = ['1', '2', '3', '4'];
+int expediente;
+int documento;
+Widget dropDownSelectExpediente() {
+  return DropdownButton<String>(
+    items: lista.map((String value) {
+      expediente = int.parse(value);
+      return new DropdownMenuItem<String>(
+        value: value,
+        child: new Text('Expediente: ' + value),
+      );
+    }).toList(),
+    onChanged: (_) {
+     
+    },
+  );
+}
+
+Widget dropDownSelectDocumento() {
+  return DropdownButton<String>(
+    items: lista2.map((String value) {
+      documento = int.parse(value);
+      return new DropdownMenuItem<String>(
+        value: value,
+        child: new Text('Documento: ' + value),
+      );
+    }).toList(),
+    onChanged: (_) {
+      
+    },
+  );
+}
+
+Widget rowWidgetFilter() {
+  return Center(
+      child: Column(
+    children: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Text('Id Documento'),
+          Text('Cod Expediente '),
+        ],
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          dropDownSelectDocumento(),
+          dropDownSelectExpediente(),
+        ],
+      ),
+    ],
+  ));
+}
+
+
   Future getImage() async {
     try {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -56,14 +112,11 @@ class _PhotoPickerState extends State<PhotoPicker> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          upload(_image,idDocumentoGlobal,codExpedienteGlobal);
-          // readText(_image);
+          upload(_image, idDocumentoGlobal, codExpedienteGlobal);
         },
         tooltip: 'Escoge una imagen',
-        //este es el boton para subir la imagen, funciona desde la consolag
         child: Icon(Icons.archive),
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

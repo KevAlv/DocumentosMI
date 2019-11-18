@@ -6,23 +6,24 @@ import 'package:path/path.dart';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 
-Future upload(File imageFile,[int idDocumento,int codExpediente]) async {
-if(idDocumento==null){
+Future upload(File imageFile,int idDocumento, int codExpediente) async {
+  if(idDocumento==null){
     idDocumento=1;
-}if(codExpediente==null){
-    codExpediente=3;
-}
+  }if(codExpediente==null){
+codExpediente=1;
+  }
   var stream =
       new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
   var length = await imageFile.length();
   var link = URL_HOST;
-  var uri = Uri.parse(link + "/upload.php");
+  var uri = Uri.parse(link + "upload.php");
   var request = new http.MultipartRequest("POST", uri);
   String contenido = await readText(imageFile);
   var multipartFile = new http.MultipartFile("image", stream, length,
-      filename: basename(imageFile.path));
-
+  filename: basename(imageFile.path));
   request.fields['Contenido'] = contenido;
+  print('el id de documeto ' + idDocumento.toString());
+  print('el codigo expediente ' + codExpediente.toString());
   request.fields['Id_documento'] = idDocumento.toString();
   request.fields['CodExpediente'] = codExpediente.toString();
   request.files.add(multipartFile);
