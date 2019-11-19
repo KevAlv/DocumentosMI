@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 
 Future upload(File imageFile,int idDocumento, int codExpediente) async {
-  if(idDocumento==null){
+if(imageFile!=null){
+    if(idDocumento==null){
     idDocumento=1;
   }if(codExpediente==null){
 codExpediente=1;
@@ -35,4 +36,5 @@ codExpediente=1;
   } else {
     print("Upload Failed");
   }
+}
 }

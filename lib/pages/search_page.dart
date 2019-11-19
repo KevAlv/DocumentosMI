@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ml_kit/common/DropDown_widget.dart';
 import 'package:ml_kit/common/list_widget.dart';
-import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/model/Fojas.dart';
 import 'package:ml_kit/services/database_services.dart';
 
