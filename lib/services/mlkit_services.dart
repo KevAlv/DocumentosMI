@@ -9,8 +9,9 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
     //Metodo que manejara la respuesta
     for (TextBlock bloque in readText.blocks) {
       for (TextLine linea in bloque.lines) {
-       contenido=contenido+linea.text+'\n';
+       contenido=contenido+linea.text;
       }
     }
+    print(contenido);
     return contenido;
   }

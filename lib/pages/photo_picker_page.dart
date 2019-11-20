@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker_modern/image_picker_modern.dart';
 import 'package:ml_kit/common/Texform_widget.dart';
-import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/services/upload_image_service.dart';
 
 class PhotoPicker extends StatefulWidget {
@@ -142,18 +141,12 @@ class _PhotoPickerState extends State<PhotoPicker> {
                 : Image.file(_image),
             )
           ),
-          // FloatingActionButton(
-            
-          //   onPressed: getImage,
-          //   tooltip: 'Escoge una imagen',
-          //   child: Icon(Icons.add_photo_alternate),
-          // )
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           _showNotification();
-          upload(_image, idDocumentoGlobal, codExpedienteGlobal);
+          upload(_image, int.parse(controlerc1.text),int.parse(controlerc2.text));
         },
         tooltip: 'Escoge una imagen',
          label: Text('Aprobar'),

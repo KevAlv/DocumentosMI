@@ -21,9 +21,10 @@ class _HomeState extends State<Home> {
   }
 
   final List<Widget> _children = [
-    DocumentosView(),
+    SearchPage(),
     PhotoPicker(),
-    SearchPage()
+     DocumentosView(),
+    
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,9 @@ class _HomeState extends State<Home> {
         
         onTap: onTabTapped, // new
         items: [
-          Icon(Icons.list, size: 20),
-          Icon(Icons.add, size: 20),
           Icon(Icons.search, size: 20),
+          Icon(Icons.add, size: 20),
+          Icon(Icons.list, size: 20),
         ],
       ),
     );

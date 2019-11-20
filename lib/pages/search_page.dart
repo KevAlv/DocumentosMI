@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:ml_kit/common/Texform_widget.dart';
 import 'package:ml_kit/common/list_widget.dart';
 import 'package:ml_kit/model/Fojas.dart';
 import 'package:ml_kit/services/database_services.dart';
+
+import 'filtrer_page.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -30,6 +33,10 @@ class _SearchPageState extends State<SearchPage> {
       });
     });
   }
+    filter() {
+    Navigator.push(context,
+        new MaterialPageRoute(builder: (context) => FilterPage()));
+  }
 
   Widget seachBar() {
     return TextField(
@@ -42,7 +49,7 @@ class _SearchPageState extends State<SearchPage> {
       },
       controller: editingController,
       decoration: InputDecoration(
-          hintText: "Busqueda",
+          hintText: "Busqueda por palabra",
           prefixIcon: Icon(Icons.search),
           contentPadding: EdgeInsets.all(20),
           border: InputBorder.none,
@@ -64,14 +71,18 @@ class _SearchPageState extends State<SearchPage> {
             padding: const EdgeInsets.all(8.0),
             child: seachBar(),
           ),
+
+        FlatButton(
+          child: Row(children: <Widget>[Text('Filtrar'),Icon(Icons.settings)],),
+          onPressed:filter,
+        ),
           SizedBox(
-            height: 10.0,
-          ),
-          SizedBox(
-            height: 10.0,
+            height: 2.0,
           ),
           Expanded(
-            child: listCardBuilder(_fojasSelected),
+            child:_fojasSelected.length!=0? listCardBuilder(_fojasSelected):Container(
+              color: Colors.white,
+            )
           )
         ],
       )),
