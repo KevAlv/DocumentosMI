@@ -15,11 +15,10 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   File _image;
-final controlerc1 = TextEditingController();
+  final controlerc1 = TextEditingController();
   final controlerc2 = TextEditingController();
- var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 //NOTIFICACIONES-------------------------------------------------
-
 
   Future onSelectNotification(String payload) async {
     if (payload != null) {
@@ -31,9 +30,11 @@ final controlerc1 = TextEditingController();
       MaterialPageRoute(),
     );
   }
-Future sleep() {
-  return new Future.delayed(const Duration(seconds:6 ), () => "4");
-}
+
+  Future sleep() {
+    return new Future.delayed(const Duration(seconds: 6), () => "4");
+  }
+
   Future<void> _showNotification() async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'your channel id', 'your channel name', 'your channel description');
@@ -48,7 +49,7 @@ Future sleep() {
         payload: trendingNewsId);
   }
 
-     @override
+  @override
   initState() {
     super.initState();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
@@ -60,6 +61,7 @@ Future sleep() {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
   }
+
   //FIN DE NOTIFICACIONES-----------------------------------------------------------------
   @override
   void dispose() {
@@ -69,7 +71,7 @@ Future sleep() {
     super.dispose();
   }
 
-Widget rowWidgetFilter() {
+  Widget rowWidgetFilter() {
     return Center(
         child: Column(
       children: <Widget>[
@@ -95,7 +97,6 @@ Widget rowWidgetFilter() {
     ));
   }
 
-
   Future getImage() async {
     try {
       var image = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -106,7 +107,16 @@ Widget rowWidgetFilter() {
       print('no image selected');
     }
   }
-
+  Future getImageCamera() async {
+    try {
+      var image = await ImagePicker.pickImage(source: ImageSource.camera);
+      setState(() {
+        _image = image;
+      });
+    } catch (e) {
+      print('no image selected');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,30 +129,35 @@ Widget rowWidgetFilter() {
           Container(
             width: MediaQuery.of(context).size.width,
             height: 300,
-            child: _image == null
+            child: GestureDetector(
+              onDoubleTap: getImageCamera,
+              onTap:getImage ,
+              child: _image == null
                 ? new Column(children: <Widget>[
-                    Image.network(
-                      'https://static.thenounproject.com/png/1174579-200.png',
+                    Image.asset(
+                      'assets/folderwithdocuments_120818.png',
                       height: 300,
                     )
                   ])
                 : Image.file(_image),
+            )
           ),
-          FloatingActionButton(
-            onPressed: getImage,
-            tooltip: 'Escoge una imagen',
-            child: Icon(Icons.add_photo_alternate),
-          )
+          // FloatingActionButton(
+            
+          //   onPressed: getImage,
+          //   tooltip: 'Escoge una imagen',
+          //   child: Icon(Icons.add_photo_alternate),
+          // )
         ],
       ),
-
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           _showNotification();
           upload(_image, idDocumentoGlobal, codExpedienteGlobal);
         },
         tooltip: 'Escoge una imagen',
-        child: Icon(Icons.archive),
+         label: Text('Aprobar'),
+        icon: Icon(Icons.check),
       ),
     );
   }

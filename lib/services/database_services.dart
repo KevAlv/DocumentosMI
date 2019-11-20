@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:ml_kit/common/session_global.dart';
 import 'package:ml_kit/model/Documents.dart';
 import 'package:ml_kit/model/Fojas.dart';
 
 class Services {
-  static const ROOT =
-      'http://192.168.0.15/SistemaAbogados/Document_actions.php';
+  static const linkHost=URL_HOST;
+  static const ROOT=linkHost+'Document_actions.php';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _GET_ALL_DOCUMENTS_ACTION = 'GET_ALL_DOCUMENTS';
 
@@ -16,11 +17,17 @@ class Services {
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
         List<Documento> list = parseResponseDocumets(response.body);
+        print('-----------------------------------------');
+        print(list.length);
         return list;
       } else {
+        print('no se que');
         return List<Documento>();
       }
-    } catch (e) {
+    } 
+    catch (e) {
+        print('no se que abajo');
+
       return List<Documento>(); // return an empty list on exception/error
     }
   }
@@ -39,8 +46,11 @@ class Services {
       final response = await http.post(ROOT, body: map);
       if (200 == response.statusCode) {
         List<Foja> list = parseResponse(response.body);
+        print(list.length);
         return list;
+         
       } else {
+       
         return List<Foja>();
       }
     } catch (e) {
