@@ -14,6 +14,7 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   File _image;
+   GlobalKey<ScaffoldState> _scaffoldKey;
   final controlerc1 = TextEditingController();
   final controlerc2 = TextEditingController();
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -51,6 +52,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
   @override
   initState() {
     super.initState();
+    _scaffoldKey = GlobalKey();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     var initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
@@ -116,6 +118,15 @@ class _PhotoPickerState extends State<PhotoPicker> {
       print('no image selected');
     }
   }
+
+_showSnackBar(context, message) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,6 +158,7 @@ class _PhotoPickerState extends State<PhotoPicker> {
         onPressed: () {
           _showNotification();
           upload(_image, int.parse(controlerc1.text),int.parse(controlerc2.text));
+          _showSnackBar(context, 'Imagen cargada');
         },
         tooltip: 'Escoge una imagen',
          label: Text('Aprobar'),

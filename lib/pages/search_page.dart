@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ml_kit/common/Texform_widget.dart';
 import 'package:ml_kit/common/list_widget.dart';
 import 'package:ml_kit/model/Fojas.dart';
 import 'package:ml_kit/services/database_services.dart';
-
+import 'package:ml_kit/common/session_global.dart';
 import 'filtrer_page.dart';
 
 class SearchPage extends StatefulWidget {
@@ -33,28 +32,27 @@ class _SearchPageState extends State<SearchPage> {
       });
     });
   }
-    filter() {
-    Navigator.push(context,
-        new MaterialPageRoute(builder: (context) => FilterPage()));
+
+  filter() {
+    Navigator.push(
+        context, new MaterialPageRoute(builder: (context) => FilterPage()));
   }
 
   Widget seachBar() {
     return TextField(
-      
       onChanged: (value) {
-        if(value!=null){
-            _getFojas(value);
+        if (value != null) {
+          _getFojas(
+              value, int.parse(controlerc1.text), int.parse(controlerc2.text));
         }
-        
       },
       controller: editingController,
       decoration: InputDecoration(
-          hintText: "Busqueda por palabra",
-          prefixIcon: Icon(Icons.search),
-          contentPadding: EdgeInsets.all(20),
-          border: InputBorder.none,
-          
-              ),
+        hintText: "Busqueda por palabra",
+        prefixIcon: Icon(Icons.search),
+        contentPadding: EdgeInsets.all(20),
+        border: InputBorder.none,
+      ),
     );
   }
 
@@ -68,22 +66,30 @@ class _SearchPageState extends State<SearchPage> {
           child: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(3.0),
             child: seachBar(),
           ),
-
-        FlatButton(
-          child: Row(children: <Widget>[Text('Filtrar'),Icon(Icons.settings)],),
-          onPressed:filter,
-        ),
+          FlatButton(
+            child: Row(
+              children: <Widget>[
+                Text('Ajustes de busqueda'),
+                Icon(
+                  Icons.settings,
+                  color: Colors.blue,
+                )
+              ],
+            ),
+            onPressed: filter,
+          ),
           SizedBox(
             height: 2.0,
           ),
           Expanded(
-            child:_fojasSelected.length!=0? listCardBuilder(_fojasSelected):Container(
-              color: Colors.white,
-            )
-          )
+              child: _fojasSelected.length != 0
+                  ? listCardBuilder(_fojasSelected)
+                  : Container(
+                      color: Colors.white,
+                    ))
         ],
       )),
     );
