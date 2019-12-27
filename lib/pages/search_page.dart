@@ -26,6 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   _getFojas(String word, [int doc, int codDoc]) {
+    
     Services.searchFojas(word, doc, codDoc).then((pages) {
       setState(() {
         _fojasSelected = pages;

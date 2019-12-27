@@ -10,6 +10,10 @@ class Services {
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _GET_ALL_DOCUMENTS_ACTION = 'GET_ALL_DOCUMENTS';
 
+
+
+  
+
   static Future<List<Documento>> getDocuments() async {
     try {
       var map = Map<String, dynamic>();

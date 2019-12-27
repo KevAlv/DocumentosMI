@@ -14,7 +14,6 @@ class PhotoPicker extends StatefulWidget {
 
 class _PhotoPickerState extends State<PhotoPicker> {
   File _image;
-   GlobalKey<ScaffoldState> _scaffoldKey;
   final controlerc1 = TextEditingController();
   final controlerc2 = TextEditingController();
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -52,7 +51,6 @@ class _PhotoPickerState extends State<PhotoPicker> {
   @override
   initState() {
     super.initState();
-    _scaffoldKey = GlobalKey();
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     var initializationSettingsAndroid =
         AndroidInitializationSettings('app_icon');
@@ -105,26 +103,20 @@ class _PhotoPickerState extends State<PhotoPicker> {
         _image = image;
       });
     } catch (e) {
-      print('no image selected');
+      print('No cargo la galeria');
     }
   }
+
   Future getImageCamera() async {
     try {
       var image = await ImagePicker.pickImage(source: ImageSource.camera);
       setState(() {
+        print('imagen cargada correcta');
         _image = image;
       });
     } catch (e) {
-      print('no image selected');
+      print('no cargo la camara');
     }
-  }
-
-_showSnackBar(context, message) {
-    _scaffoldKey.currentState.showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
   }
 
   @override
@@ -137,32 +129,53 @@ _showSnackBar(context, message) {
         children: <Widget>[
           rowWidgetFilter(),
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: 300,
-            child: GestureDetector(
-              onDoubleTap: getImageCamera,
-              onTap:getImage ,
-              child: _image == null
-                ? new Column(children: <Widget>[
-                    Image.asset(
-                      'assets/folderwithdocuments_120818.png',
-                      height: 300,
-                    )
-                  ])
-                : Image.file(_image),
-            )
-          ),
+              width: MediaQuery.of(context).size.width,
+              height: 300,
+              child: GestureDetector(
+                // onDoubleTap: getImageCamera,
+                onTap: getImage,
+                child: _image == null
+                    ? new Column(children: <Widget>[
+                        Image.asset(
+                          'assets/folderwithdocuments_120818.png',
+                          height: 300,
+                        )
+                      ])
+                    : Image.file(_image),
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              FloatingActionButton.extended(
+                backgroundColor: Colors.red,
+                onPressed: () {
+                  setState(() {
+                      _image=null;
+                  });
+                  
+                },
+                tooltip: 'Escoge una imagen',
+                label: Text('Cancelar'),
+                icon: Icon(
+                  Icons.cancel,
+                 
+                ),
+              ),
+              FloatingActionButton.extended(
+                onPressed: 
+                 (){
+                   _showNotification();
+                   upload(_image, int.parse(controlerc1.text),int.parse(controlerc2.text));
+                   
+                 }
+                ,
+                tooltip: 'Escoge una imagen',
+                label: Text('Aprobar'),
+                icon: Icon(Icons.check),
+              ),
+            ],
+          )
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          _showNotification();
-          upload(_image, int.parse(controlerc1.text),int.parse(controlerc2.text));
-          _showSnackBar(context, 'Imagen cargada');
-        },
-        tooltip: 'Escoge una imagen',
-         label: Text('Aprobar'),
-        icon: Icon(Icons.check),
       ),
     );
   }
